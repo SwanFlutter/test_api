@@ -38,7 +38,7 @@ class _MyPageState extends State<MyPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: FutureBuilder<List<Product>?>(
-        future: fetchAllProducts(),
+        future: listproduct,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -51,6 +51,8 @@ class _MyPageState extends State<MyPage> {
             return ListView.builder(
               itemCount: listproduct.length,
               itemBuilder: (context, index) {
+                print("List images ${listproduct[index].images}");
+                print(listproduct[index].id);
                 return Card(
                     elevation: 5,
                     shape: BeveledRectangleBorder(
@@ -64,8 +66,14 @@ class _MyPageState extends State<MyPage> {
                           height: size.height * 0.3,
                           child: listproduct[index].images != null &&
                                   listproduct[index].images!.isNotEmpty
-                              ? Image.network(listproduct[index].images![0])
-                              : const Icon(Icons.image_not_supported),
+                              ? Image.network(
+                                  listproduct[index].images![0],
+                                  fit: BoxFit.fitWidth,
+                                )
+                              : const Icon(
+                                  Icons.image_not_supported,
+                                  size: 100,
+                                ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 25.0),

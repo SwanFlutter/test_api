@@ -18,7 +18,7 @@ Future<List<Product>?> fetchAllProducts() async {
       });
 
   if (response.statusCode == 200) {
-    print(response.statusCode);
+    print(response.body);
     List<Product> mylistproduct = List<Product>.from(
         jsonDecode(response.body).map((x) => Product.fromMap(x)));
     return mylistproduct;

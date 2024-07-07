@@ -40,7 +40,7 @@ class Product {
       'name': name,
       'description': description,
       'price': price,
-      'images': images,
+      'images': images?.map((image) => {'src': image}).toList(),
     };
   }
 
@@ -52,7 +52,8 @@ class Product {
           map['description'] != null ? map['description'] as String : null,
       price: map['price'] != null ? map['price'] as String : null,
       images: map['images'] != null
-          ? (map['images'] as List).whereType<String>().toList()
+          ? List<String>.from(
+              map['images'].map((image) => image['src'] as String))
           : null,
     );
   }
@@ -87,6 +88,7 @@ class Product {
         images.hashCode;
   }
 }
+
 
 /*class Images {
   String? src;
